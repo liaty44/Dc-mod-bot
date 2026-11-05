@@ -2,6 +2,18 @@ require('dotenv').config();
 const dns = require("dns");
 dns.setDefaultResultOrder("ipv4first");
 
+// Render ke dummy port ke liye Express add kiya gaya hai
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.get('/', (req, res) => {
+    res.send('Groove Music Bot is Running Live 24/7!');
+});
+
+app.listen(PORT, () => {
+    console.log(`[RENDER] Dummy HTTP Server listening on port ${PORT}`);
+});
 
 const { setGlobalDispatcher, Agent } = require("undici");
 setGlobalDispatcher(new Agent({
@@ -29,7 +41,6 @@ client.Jsk = new Dokdo.Client(client, {
 });
 
 process.env.SHELL = process.platform === "win32" ? "powershell" : "bash";
-
 
 const emojis = require("./src/emojis");
 client.emoji = emojis;
